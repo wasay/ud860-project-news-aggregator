@@ -121,7 +121,7 @@ function scripts_app() {
     gulp.src(paths.scripts_app.src, {sourcemaps: true})
         .pipe(babel())
         .pipe(concat(paths.scripts_app.saveas))
-        //.pipe(uglify())
+        .pipe(uglify())
         //pass in options to the stream
         .pipe(rename({
             basename: paths.scripts_app.saveas,
@@ -135,7 +135,7 @@ function scripts_sw() {
     return gulp.src(paths.scripts_sw.src, {sourcemaps: false})
         .pipe(babel())
         .pipe(concat(paths.scripts_sw.saveas))
-        //.pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest(paths.scripts_sw.dest));
 }
 
