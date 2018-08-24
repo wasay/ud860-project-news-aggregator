@@ -301,7 +301,7 @@ APP.Main = (function () {
             evt.preventDefault();
         }
 
-    });
+    }, {passive: true});
 
     main.addEventListener('scroll', function () {
 
@@ -327,7 +327,7 @@ APP.Main = (function () {
             LAZY_LOAD_THRESHOLD);
         if (main.scrollTop > loadThreshold)
             loadStoryBatch();
-    });
+    }, {passive: true});
 
     function loadStoryBatch() {
 
@@ -369,3 +369,15 @@ APP.Main = (function () {
     });
 
 })();
+
+if (navigator.serviceWorker)
+{
+    //console.log('navigator.serviceWorker');
+    navigator.serviceWorker.register('sw.js').then(function ()
+    {
+        //console.log('Registration worked!');
+    }).catch(function ()
+    {
+        //console.log('Registration failed!');
+    });
+}
