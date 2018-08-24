@@ -137,7 +137,9 @@ APP.Main = (function () {
             storyContent.style.paddingTop = headerHeight + 'px';
 
             if (typeof kids === 'undefined')
+            {
                 return;
+            }
 
             for (var k = 0; k < kids.length; k++) {
 
@@ -150,10 +152,15 @@ APP.Main = (function () {
                 // Update the comment with the live data.
                 APP.Data.getStoryComment(kids[k], function (commentDetails) {
 
+                    if (typeof commentDetails === 'undefined')
+                    {
+                        return;
+                    }
+
                     commentDetails.time *= 1000;
 
                     var comment = commentsElement.querySelector(
-                        '#sdc-' + commentDetails.id);
+                       '#sdc-' + commentDetails.id);
                     comment.innerHTML = storyDetailsCommentTemplate(
                         commentDetails,
                         localeData);
@@ -263,33 +270,55 @@ APP.Main = (function () {
 
         var storyElements = document.querySelectorAll('.story');
         var height = main.offsetHeight;
-        //var height = mainOffsetHeight;
         var mainPosition = main.getBoundingClientRect();
         var mainTop = document.body.getBoundingClientRect().top;
 
-        // It does seem awfully broad to change all the
-        // colors every time!
+        var scores = [];
         for (var s = 0; s < storyElements.length; s++) {
 
-            var story = storyElements[s];
+            var storyItem = storyElements[s];
+            var scoreItem = storyItem.querySelector('.story__score');
+            // var titleItem = storyItem.querySelector('.story__title');
+
+            // Base the scale on the y position of the score.
+            var scoreLocation = scoreItem.getBoundingClientRect().top - mainTop;
+            var scales = Math.min(1, 1 - (0.05 * ((scoreLocation - 170) / height)));
+            var opacities = Math.min(1, 1 - (0.5 * ((scoreLocation - 170) / height)));
+
+            //score.style.width = (scale * 40) + 'px';
+            //score.style.height = (scale * 40) + 'px';
+            //score.style.lineHeight = (scale * 40) + 'px';
+
+            // Now figure out how wide it is and use that to saturate it.
+            scoreLocation = scoreItem.getBoundingClientRect();
+
+            // #FFB300 R=255 G=179 B=0 original
+            //#755200 best
+            //https://www.w3schools.com/colors/colors_hsl.asp
+
+            var saturations = (100 * ((scoreLocation.width - 38) / 2));
+
+            //score.style.backgroundColor = 'hsl(42, ' + saturation + '%, 50%)';
+            //title.style.opacity = opacity.toString();
+
+            scores.push([scales, saturations, opacities]);
+        }
+
+        for (var t = 0; t < scores.length; t++) {
+            var story = storyElements[t];
             var score = story.querySelector('.story__score');
             var title = story.querySelector('.story__title');
 
-            // Base the scale on the y position of the score.
-            var scoreLocation = score.getBoundingClientRect().top - mainTop;
-            var scale = Math.min(1, 1 - (0.05 * ((scoreLocation - 170) / height)));
-            var opacity = Math.min(1, 1 - (0.5 * ((scoreLocation - 170) / height)));
+            var scale = scores[t][0];
+            var saturation = scores[t][1];
+            var opacity = scores[t][2];
 
             score.style.width = (scale * 40) + 'px';
             score.style.height = (scale * 40) + 'px';
             score.style.lineHeight = (scale * 40) + 'px';
 
-            // Now figure out how wide it is and use that to saturate it.
-            scoreLocation = score.getBoundingClientRect();
-            var saturation = (100 * ((scoreLocation.width - 38) / 2));
-
-            score.style.backgroundColor = 'hsl(42, ' + saturation + '%, 50%)';
-            title.style.opacity = opacity;
+            score.style.backgroundColor = 'hsl(42, ' + saturation + '%, 22%)';
+            title.style.opacity = opacity.toString();
         }
     }
 
@@ -369,15 +398,3 @@ APP.Main = (function () {
     });
 
 })();
-
-if (navigator.serviceWorker)
-{
-    //console.log('navigator.serviceWorker');
-    navigator.serviceWorker.register('sw.js').then(function ()
-    {
-        //console.log('Registration worked!');
-    }).catch(function ()
-    {
-        //console.log('Registration failed!');
-    });
-}

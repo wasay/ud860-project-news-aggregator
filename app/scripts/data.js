@@ -50,6 +50,15 @@ APP.Data = (function() {
     xhr.responseType = 'json';
     xhr.onload = callback;
     xhr.send();
+
+    // console.log(url);
+    //
+    // return fetch(url)
+    //     .then(function(response){
+    //       const rsp = response;
+    //       console.log(rsp.json());
+    //       return rsp;
+    //     });
   }
 
   return {

@@ -1,0 +1,2 @@
+User-agent: *
+Disallow: /third_party/

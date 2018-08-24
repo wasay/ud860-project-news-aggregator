@@ -1,6 +1,6 @@
 // sw.js
 const appPrefix = 'mws-hacker-news';
-const staticCacheName = appPrefix + '-v3';
+const staticCacheName = appPrefix + '-v6';
 const contentImgsCache = appPrefix + '-content-imgs';
 const allCaches = [staticCacheName, contentImgsCache];
 let debug = false;
@@ -12,7 +12,7 @@ self.addEventListener('install', function (event) {
     self.skipWaiting();
 
     event.waitUntil(caches.open(staticCacheName).then(function (cache) {
-        return cache.addAll(['/', 'images/icons/icon.png', 'images/icons/icon.svg', 'images/icons/icon192.png', 'images/icons/icon512.png', 'images/loader.png', 'images/placeholder.png', 'scripts/app.js', 'scripts/data.js', 'scripts/namespace.js', 'styles/app.css', 'third_party/handlebars-intl.min.js', 'third_party/handlebars-v3.0.0.js', '404.html', 'index.html', 'manifest.json', 'sw.js', 'https://fonts.googleapis.com/css?family=Roboto:400,500,700', 'https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fBBc4AMP6lQ.woff2']);
+        return cache.addAll(['/', 'images/icons/icon.png', 'images/icons/icon.svg', 'images/icons/icon192.png', 'images/icons/icon512.png', 'images/ic_close_24px.svg', 'images/loader.png', 'images/placeholder.png', 'scripts/app.min.js', 'scripts/sw-reg.min.js', 'styles/app.min.css', 'third_party/handlebars-intl.min.js', 'third_party/handlebars-v3.0.0.js', '404.html', 'index.html', 'manifest.json', 'sw.js', 'robots.txt', 'https://fonts.googleapis.com/css?family=Roboto:400,500,700', 'https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fBBc4AMP6lQ.woff2']);
     }).catch(error => {
         // Oops!. Got an error from server.
         error.message = `Request failed install. Returned status of ${error.message}`;

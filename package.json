@@ -1,0 +1,43 @@
+{
+  "name": "ud860-project-news-aggregator",
+  "version": "2.0.0",
+  "description": "Top News by Hacker News",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:wasay/ud860-project-news-aggregator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wasay/ud860-project-news-aggregator/issues"
+  },
+  "homepage": "https://github.com/wasay/ud860-project-news-aggregator#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "browser-sync": "^2.24.6",
+    "browserify": "^16.2.2",
+    "del": "^3.0.0",
+    "event-stream": "^3.3.4",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-clean-css": "^3.9.4",
+    "gulp-concat": "^2.6.1",
+    "gulp-image-resize": "^0.13.0",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-uglify": "^3.0.1",
+    "gulp-uglifyes": "^0.1.3",
+    "imagemin": "^6.0.0",
+    "imagemin-webp": "^4.1.0",
+    "run-sequence": "^2.2.1",
+    "uglify-es": "^3.3.9"
+  },
+  "dependencies": {
+    "gulp-dest": "^0.2.3"
+  }
+}
